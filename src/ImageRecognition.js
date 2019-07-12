@@ -2,6 +2,7 @@ import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import {Webcam} from './utils/webcam';
 import {isMobile} from './utils/utils';
 
+console.log(cocoSsd)
 export default class ImageRecognition {
   constructor(){
     this.webcam;

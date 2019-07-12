@@ -23,7 +23,7 @@ export default class App{
     this.recognitionFeature.loadModel()
       .then(() => {
         this.startButton.classList.remove('blinking');
-        this.startButton.innerText = 'Start';
+        this.startButton.innerText = 'Почати';
         this.startButton.onclick = () => this.start();
       })
   }
@@ -35,13 +35,13 @@ export default class App{
     this.recognitionFeature.initiateWebcam()
       .then(() => {
         this.guessButton.classList.remove('blinking');
-        this.guessButton.innerText = 'Is this recyclable?';
+        this.guessButton.innerText = 'Це можна заресайклити?';
         this.guessButton.onclick = () => {
           this.predict();
         };
       }).catch(() => {
         hideElement(this.guessButton);
-        this.resultDiv.innerHTML = `Webcam not available. This demo requires webcam access.`;
+        this.resultDiv.innerHTML = `Камера не доступна. Цей сайт потребує доступу до камери.`;
       })
   }
 
@@ -50,7 +50,7 @@ export default class App{
     .then((predictionsResult) => {
       if(predictionsResult.length){
         this.resultDiv.innerText = '';
-        this.resultDiv.innerHTML = `Is it a ${predictionsResult[0].class.split(',')[0]}?`;
+        this.resultDiv.innerHTML = `Це ${predictionsResult[0].class.split(',')[0]}?`;
         hideElement([this.classificationDiv, this.guessButton]);
 
         this.classifyItem(predictionsResult[0].class.split(',')[0]);
@@ -87,16 +87,15 @@ export default class App{
 
     switch(color){
       case "yellow":
-        content = `It is recyclable! Throw it in the ${color} bin! 🎉`;
+        content = `Це можна заресайклити! Кидай у відповідний контейнер! 🎉`;
         this.showFinalMessage(content);
         break;
       case "red":
-        content = `It is not recyclable 😢Throw it in the ${color} bin.`;
+        content = `Це поки не можна заресайклити 😢Кидай у звичайне сміття.`;
         this.showFinalMessage(content);
         break;
       case "none":
-        content = `Mmmm, I don't seem to know yet how to classify that but...\n
-        Is it made of soft plastic, aluminium, paper, glass or cardboard?`;
+        content = `Мммм, я ще не знаю, куди це віднести... Це зроблено з пластику, картону або паперу?`;
         this.displayLastButtons();
         break;
       default:
@@ -112,8 +111,8 @@ export default class App{
     const yesButton = document.getElementById('yes');
     const noButton = document.getElementById('no');
 
-    yesButton.onclick = () => this.showFinalMessage("You can probably throw it in the yellow bin!! 🎉");
-    noButton.onclick = () => this.showFinalMessage("Mmmm... better put it in the red bin");
+    yesButton.onclick = () => this.showFinalMessage("Ти можеш кинути це у відповідний контейнер!! 🎉");
+    noButton.onclick = () => this.showFinalMessage("Мммм... краще кидай у звичайне сміття");
   }
 
   showFinalMessage = content => {
